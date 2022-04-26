@@ -14,6 +14,27 @@ namespace ProjetA.Server.Data
             : base(options)
         {
         }
+        private const string connectionString = "Server=DESKTOP-JDGBI4U;Database=ProjetADB;Trusted_Connection=True;MultipleActiveResultSets=true;";
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProjetA.Shared.Mail>()
+                .Property(Mail => Mail.Id).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<ProjetA.Shared.Agent>()
+               .Property(Agent => Agent.Id).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<ProjetA.Shared.Position>()
+               .Property(Position => Position.Id).ValueGeneratedOnAdd();
+
+        }
 
         public DbSet<ProjetA.Shared.Agent> Agent { get; set; }
 
